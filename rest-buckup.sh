@@ -190,9 +190,8 @@ display_menu() {
 # Fonction pour la copie de DB via SFTP
 copier_db() {
     echo "Connexion via SFTP pour copier le fichier DB..."
-    sftp aub@srvbkp <<EOF
+    sftp aub@172<<EOF
     cp /export/home2/aub/demp/test.dmp /export/home2/aub/demp/
-    scp aub@172.16.3.66:/export/home2/aub/dmp/
 EOF
 
     if [[ $? -eq 0 ]]; then
@@ -202,33 +201,6 @@ EOF
     fi
 }
 
-
-# 
-#!/bin/bash
-
-# copier_db() {
-#     echo "Connexion via SFTP pour copier le fichier DB..."
-#     /usr/bin/expect <<EOF
-#     spawn sftp aub@srvbkp
-#     expect "password:"
-#     send "votre_mot_de_passe\r"
-#     expect "sftp>"
-#     send "cp /export/home2/aub/demp/test.dmp /export/home2/aub/demp/\r"
-#     expect "sftp>"
-#     send "bye\r"
-#     expect eof
-# EOF
-
-#     if [[ $? -eq 0 ]]; then
-#         echo "Le fichier a été copié avec succès."
-#     else
-#         echo "Erreur lors de la copie du fichier. Code d'erreur: $?"
-#     fi
-# }
-
-copier_db
-
-# 
 # Fonction pour arrêter le serveur
 stop_server() {
     su - oamw -c "systemctl stop admin"
@@ -276,20 +248,20 @@ verifier_systeme() {
 }
 
 # Authentification utilisateur
-echo -n "Nom d'utilisateur : "
-read username
-echo -n "Mot de passe : "
-read -s password
-echo
+# echo -n "Nom d'utilisateur : "
+# read username
+# echo -n "Mot de passe : "
+# read -s password
+# echo
 
 # Validation des informations d'identification
 # Ici vous pouvez ajouter votre propre logique d'authentification
-if [[ "$username" == "mbare" && "$password" == "1234" ]]; then
-    echo "Authentification réussie."
-else
-    echo "Nom d'utilisateur ou mot de passe incorrect."
-    exit 1
-fi
+# if [[ "$username" == "mbare" && "$password" == "1234" ]]; then
+#     echo "Authentification réussie."
+# else
+#     echo "Nom d'utilisateur ou mot de passe incorrect."
+#     exit 1
+# fi
 
 # Affichage du menu et gestion des choix utilisateur
 while true; do
